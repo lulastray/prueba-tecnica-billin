@@ -22,6 +22,7 @@ getTotalAmount = () => {
   const lineItems = this.state.invoice.lineItems
   const totalAmount=lineItems.map(lineItem => lineItem.quantity * lineItem.unitPrice).reduce((acc, val) => acc + val)
   console.log(totalAmount)
+  return totalAmount
 }
 
 render() {
