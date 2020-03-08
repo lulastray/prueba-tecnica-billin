@@ -25,7 +25,7 @@ class NavBar extends Component {
     render() {
         return (
             <WrapperNav>
-                <Title>Search an invoice</Title>
+                <Title>Invoice search</Title>
 
             </WrapperNav>
         )

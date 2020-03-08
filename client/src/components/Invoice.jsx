@@ -12,53 +12,70 @@ display: inline-block`
 
 const InvoiceCard = styled.section`
 background-color: #F9F8F7;
-width: 90%;
+width: 80%;
 border: solid 1px rgba(225, 221, 220,.7);
 border-radius:10px;
-margin:0 auto;
+margin-left:5%;
 padding: 10px;`
 
+const InvoiceWrapper = styled.div`
+width: 85%;
+margin: 0 auto`
+
+const InvoiceTable = styled.table`
+width:100%
+`
+const HeadRow = styled.tr`
+background-color: #FFC12B`
+
+const HeadCell = styled.td`
+text-align: center;
+font-weight: 600;
+padding: 6px`
 
 
 const Invoice = props => {
 
     const { id, client, lineItems, status } = props.invoice
-    
+
     const getTotalAmount = () => {
         return lineItems.map(lineItem => lineItem.quantity * lineItem.unitPrice).reduce((acc, val) => acc + val)
-      }
+    }
 
     return (
         <InvoiceCard>
-            <p>invoice id:{id}</p>
-            <p>client id: {client}</p>
-            <p>Line Items:</p>
-            <table>
-                <thead>
-                    <th>Product</th>
-                    <th>Department</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </thead>
-                <tbody>
-            {
-                lineItems.map( (lineItem, idx)=> 
-                    <LineItem key={idx} lineItem={lineItem}></LineItem>
-                )
-            }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Total amount</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>{getTotalAmount()}</th>
-                    </tr>
-                </tfoot>
-            </table>
-            <p>status: <Status status={status}/> {status}</p>
+            <InvoiceWrapper>
+                <p>Invoice id:{id}</p>
+                <p>Client id: {client}</p>
+                <InvoiceTable>
+                    <thead>
+                        <HeadRow>
+                            <HeadCell>Product</HeadCell>
+                            <HeadCell>Department</HeadCell>
+                            <HeadCell>Price</HeadCell>
+                            <HeadCell>Quantity</HeadCell>
+                            <HeadCell>Total</HeadCell>
+                        </HeadRow>
+                    </thead>
+                    <tbody>
+                        {
+                            lineItems.map((lineItem, idx) =>
+                                <LineItem key={idx} lineItem={lineItem}></LineItem>
+                            )
+                        }
+                    </tbody>
+                    <tfoot>
+                        <HeadRow>
+                            <HeadCell>Total amount</HeadCell>
+                            <HeadCell></HeadCell>
+                            <HeadCell></HeadCell>
+                            <HeadCell></HeadCell>
+                            <HeadCell>{getTotalAmount()}</HeadCell>
+                        </HeadRow>
+                    </tfoot>
+                </InvoiceTable>
+                <p>Status: <Status status={status} /> {status}</p>
+            </InvoiceWrapper>
         </InvoiceCard>
     )
 }

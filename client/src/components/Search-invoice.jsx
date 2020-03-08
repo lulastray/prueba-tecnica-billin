@@ -4,21 +4,11 @@ import styled from 'styled-components'
 import Button from '../components/Button'
 
 
-// estilos generales del contenedor del buscador (hacerle un reseteo de estilos)
-const Wraper = styled.section`
-font-family: raleway;
-color: grey;
-margin: 5%;
-`
-
-
 const FormLabel = styled.label`
 display:block;
 font-weight: 600;
 margin-bottom:4px;
 `
-
-
 
 const FormInput = styled.input`
 width: 80%;
@@ -61,13 +51,11 @@ class SearchInvoice extends Component {
   render() {
  
     return (
-      <Wraper>
         <form>
           <FormLabel>Invoice id</FormLabel>
           <FormInput onChange={e => this.handleChange(e)} name="invoiceId" value={this.state.invoiceId}></FormInput>
           <Button handleSubmit={this.handleSubmit} text="Find"></Button>
         </form>
-      </Wraper>
     )
   }
 }
