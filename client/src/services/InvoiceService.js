@@ -13,7 +13,6 @@ class InvoiceService {
         return this.tokenService.getToken(`${process.env.REACT_APP_USERNAME}`,`${process.env.REACT_APP_PASSWORD}`)
             .then(token => {
 
-                console.log(token)
                 return { 
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -25,7 +24,6 @@ class InvoiceService {
     getOneInvoice = id => {
         return this.getHeaders()
         .then(headers =>{
-            console.log(headers)
             return this.service.get(`${process.env.REACT_APP_API_URL}invoices/${id}`, headers)
                 .then(response => response.data.data)
         })

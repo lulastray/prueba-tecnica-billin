@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
 import './App.css';
 import InvoiceService from './services/InvoiceService'
+import SearchInvoice from './components/Search-invoice'
+import NavBar from './components/NavBar'
+import Invoice from './components/Invoice';
+
+
 
 
 class App extends Component{
   constructor (){
     super()
     this.state = {
-      invoice: undefined
+      invoice: undefined,
+      spinner: false
     }
     this.service = new InvoiceService ()
 }
 
-componentDidMount(){
- 
-  this.service.getOneInvoice("I-00028988")
-    .then(invoice => this.setState({ invoice }))
+
+getOneInvoice = id => {
+  this.setState({spinner: true})
+  this.service.getOneInvoice(id)
+    .then(invoice=>this.setState({ invoice : invoice, spinner: false}))
 }
 
-getTotalAmount = () => {
-  const lineItems = this.state.invoice.lineItems
-  const totalAmount=lineItems.map(lineItem => lineItem.quantity * lineItem.unitPrice).reduce((acc, val) => acc + val)
-  console.log(totalAmount)
-  return totalAmount
-}
+
 
 render() {
-  this.state.invoice && this.getTotalAmount()
+
   return (
     <div>
-      hola
+      <NavBar></NavBar>
+      <SearchInvoice getOneInvoice={this.getOneInvoice}></SearchInvoice>
+      {this.state.invoice ?
+        <Invoice invoice={this.state.invoice}></Invoice>
+        : this.state.spinner ? <p>Spinner</p> : null
+      }
     </div>
   );
 }
