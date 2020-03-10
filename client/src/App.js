@@ -7,6 +7,7 @@ import Invoice from './components/Invoice';
 import ProductService from './services/ProductService';
 import Spinner from './components/Spinner';
 import styled from 'styled-components'
+import PrintService from './services/PrintService'
 
 
 const SearchWrapper = styled.div`
@@ -31,6 +32,7 @@ class App extends Component{
     }
     this.service = new InvoiceService ()
     this.productService = new ProductService()
+    this.printService = new PrintService()
 }
 
 
@@ -40,9 +42,18 @@ getOneInvoice = id => {
     this.setState({spinner: true})
     this.service.getOneInvoice(id)
       .then(invoice=> {
+        console.log("invoice", invoice)
         if(!invoice) {
           this.setState({ error: "This invoice doesn´t exist", spinner: false})
         }
+        this.printService.printBasic({
+          date: new Date(),
+          invoice: invoice.id,
+          customer: invoice.client,
+          ...invoice,
+          lineItems: invoice.lineItems.map(lineItem => ({...lineItem, price: lineItem.quantity * lineItem.unitPrice})),
+          total: invoice.lineItems.map(lineItem => lineItem.quantity * lineItem.unitPrice).reduce((acc, val) => acc + val)})
+        
         this.setState({ invoice : invoice, spinner: false})
       })
       .catch(err=> this.setState({ error: "Oooohh, something went wrong! Try later", spinner: false}))

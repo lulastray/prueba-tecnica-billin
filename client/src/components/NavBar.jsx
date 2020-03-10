@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 
@@ -16,20 +16,15 @@ margin-left:5%`
 
 
 
-class NavBar extends Component {
-    constructor() {
-        super()
-
-    }
-
-    render() {
+const NavBar = () =>{
+    
         return (
             <WrapperNav>
                 <Title>Invoice search</Title>
 
             </WrapperNav>
         )
-    }
+    
 }
 
 

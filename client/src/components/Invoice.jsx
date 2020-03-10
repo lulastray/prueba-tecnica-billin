@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import LineItem from './LineItem'
 
 const Status = styled.span`
-background-color: ${props => props.status == "sent" ? "green" : "red"};
+background-color: ${props => props.status === "sent" ? "green" : "red"};
 border-radius: 50%;
 width: 15px;
 height:15px;
@@ -11,7 +11,7 @@ margin:0 5px;
 display: inline-block`
 
 const InvoiceCard = styled.section`
-background-color: #F9F8F7;
+background-color: #FFF;
 width: 80%;
 border: solid 1px rgba(225, 221, 220,.7);
 border-radius:10px;
